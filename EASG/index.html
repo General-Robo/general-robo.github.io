@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081F5C">
+  <meta name="description" content="VLMs are Native Action Models — Explicit Action-Space Grounding for zero-shot and fine-tuned robotic manipulation.">
+  <title>VLMs are Native Action Models · EASG</title>
+  <link rel="icon" type="image/svg+xml" href="assets/project/star.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/easg.css?v=20261007-local-ablation-caption">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <div class="intro" id="intro" aria-label="Paper introduction">
+    <div class="intro-grid" aria-hidden="true"></div>
+    <div class="intro-inner">
+      <div class="intro-stage" data-stage="0">
+        <div class="intro-question intro-question-initial intro-slide">Let's rethink the existing<br>action interfaces.</div>
+        <div class="intro-slide intro-comparison vla-comparison">
+          <div class="intro-vla-visual"><img class="intro-pdf" src="assets/project/vla.svg?v=2" alt="VLA action-interface diagram"><strong>Cannot Zero-shot</strong></div>
+          <p><span class="intro-vla-label">VLA:</span><br>Tokenized Action Representations | Action Experts | Action Pretraining</p>
+        </div>
+        <div class="intro-slide intro-comparison code-comparison">
+          <img class="intro-pdf" src="assets/project/code_icons.svg" alt="Code-as-Policies external modules">
+          <p><span class="intro-code-label">Code as Policies:</span><br>Rely on External Modules &amp; No Trainable Action Interface</p>
+        </div>
+  <div class="intro-question intro-question-repeat intro-slide">What's the most proper<br>action interface?</div>
+      </div>
+      <button class="scroll-cue" id="scroll-cue" type="button"><img src="assets/project/star.svg" alt="Project star icon"><span>scroll to view</span></button>
+    </div>
+    <div class="intro-progress"><span class="active"></span><span></span><span></span><span></span></div>
+  </div>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="Back to top"><img class="brand-mark" src="assets/project/star.svg" alt=""><span>EASG</span></a>
+    <nav class="header-nav" aria-label="Primary navigation">
+      <a href="#introduction">Introduction</a><a href="#method">Method</a><a href="#experiments">Experiments</a><a href="#summary">Summary</a>
+    </nav>
+  </header>
+
+  <aside class="section-rail" aria-label="Page sections">
+    <div class="rail-bars" id="rail-bars"></div>
+    <div class="rail-preview" id="rail-preview"><span class="rail-preview-kicker">Current section</span><strong id="rail-title">Intro</strong><p id="rail-copy">EASG as an appropriate action interface.</p></div>
+  </aside>
+
+  <main>
+    <section class="hero section-dark" id="introduction" data-section="INTRODUCTION" data-rail-copy="EASG as an appropriate action interface.">
+      <div class="hero-backdrop" aria-hidden="true"><object class="hero-backdrop-pdf" data="assets/project/main_bg.pdf?v=20261006-direct#toolbar=0&amp;navpanes=0&amp;scrollbar=0&amp;view=FitH" type="application/pdf"></object></div>
+      <div class="hero-wash" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="eyebrow"><strong>E</strong>XPLICIT <strong>A</strong>CTION-<strong>S</strong>PACE <strong>G</strong>ROUNDING</p>
+        <h2>VLMs are Native Action Models<span class="hero-dot">:</span></h2>
+        <p class="hero-deck">Unleashing the manipulation capabilities of VLMs with Explicit Action-Space Grounding</p>
+        <div class="author-list" aria-label="Authors">
+          <span class="author-entry"><a href="https://openreview.net/profile?id=~jingkun_yi1" target="_blank" rel="noreferrer">Jingkun Yi</a><sup>1,2,*</sup></span><span>·</span>
+          <span class="author-entry"><a href="https://hishujie.github.io/" target="_blank" rel="noreferrer">Shujie Zhang</a><sup>2,3,*</sup></span><span>·</span>
+          <span class="author-entry"><a href="https://github.com/zr-zhou0o0" target="_blank" rel="noreferrer">Zirui Zhou</a><sup>3</sup></span><span>·</span>
+          <span class="author-entry"><a href="https://wang-haoxiao.github.io/" target="_blank" rel="noreferrer">Haoxiao Wang</a><sup>1</sup></span><span>·</span>
+          <span class="author-entry"><a href="https://github.com/SunSeaLucky" target="_blank" rel="noreferrer">Haiyang Sun</a><sup>1</sup></span><span>·</span>
+          <span class="author-entry"><a href="https://scholar.google.com/citations?user=dttX3KsAAAAJ&amp;hl=zh-CN" target="_blank" rel="noreferrer">Yuhang Dong</a><sup>1</sup></span><span>·</span>
+          <span class="author-entry"><a href="https://sheldontsui.github.io/" target="_blank" rel="noreferrer">Xudong Xu</a><sup>2</sup></span><span>·</span>
+          <span class="author-entry"><a href="https://xingbaji.github.io/" target="_blank" rel="noreferrer">Xing Shen</a><sup>2</sup></span><span>·</span>
+          <span class="author-entry"><span class="author-plain">Tao Zhang</span><sup>1</sup></span><span>·</span>
+          <span class="author-entry"><a href="https://scholar.google.com/citations?hl=en&amp;user=qYcgBbEAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank" rel="noreferrer">Yong Liu</a><sup>1</sup></span><span>·</span>
+          <span class="author-entry"><a href="https://zhangzjn.github.io/" target="_blank" rel="noreferrer">Jiangning Zhang</a><sup>1,†</sup></span>
+        </div>
+        <p class="affiliations"><sup>1</sup> Zhejiang University&nbsp;&nbsp; <sup>2</sup> Shanghai Artificial Intelligence Laboratory&nbsp;&nbsp; <sup>3</sup> Tsinghua University</p>
+        <p class="author-notes"><sup>*</sup> Equal contribution&nbsp;&nbsp;&nbsp; <sup>†</sup> Corresponding author</p>
+        <div class="hero-links"><a href="files/paper.pdf">paper</a><i>|</i><a href="https://github.com/General-Robo/EASG">github repo</a><i>|</i><a href="#method">playground</a><i>|</i><a href="#finetune">video</a></div>
+      </div>
+    </section>
+
+    <section class="section section-light intro-summary" id="overview" data-section="OVERVIEW" data-rail-copy="EASG as an appropriate action interface.">
+      <p class="overview-tldr"><strong>tl;dr:</strong> We show that pretrained VLMs can perform zero-shot robotic manipulation with explicit action space grounding, and the same action interface can support subsequent fine-tuning.</p>
+      <div class="section-card-body">
+        <div class="section-caption"><span>OVERVIEW</span></div>
+        <div class="summary-grid">
+          <div class="abstract-card"><p class="eyebrow">ABSTRACT</p><p>Pretrained vision-language models (VLMs) already exhibit strong visual, spatial, and reasoning capabilities relevant to robotic manipulation. A key challenge in turning these capabilities into generalist manipulation policies is how to expose these capabilities through an appropriate action interface. <strong>Vision-language-action (VLA)</strong> models provide a unified trainable policy, but typically introduce learned action tokens, action heads, or action experts whose semantics must be acquired from robot trajectories before the model can act. In contrast, <strong>modular foundation-model-based manipulation methods</strong> can exploit pretrained VLM capabilities for zero-shot manipulation, but rely on external planning and control scaffolds that are not end-to-end trainable as a unified continuous-action policy. We introduce EASG, an Explicit Action-Space Grounding framework that bridges these two paradigms. EASG makes the semantics of a continuous robot action space directly observable in the VLM’s perceptual context by projecting a tool center point (TCP)-centered action frame into first-person observations, while expressing actions through the VLM’s native textual generation interface. This allows pretrained VLMs to directly translate their existing visual-spatial reasoning into executable robot actions, without robot-action pretraining or auxiliary learned modules. At the same time, the same interface supports direct fine-tuning with robot trajectories, allowing the model to continuously improve upon the manipulation capabilities unleashed by EASG. We demonstrate that EASG enables zero-shot manipulation and generalization across object positions, categories, and robot embodiments, while remaining effectively trainable in continuous action spaces. These results suggest that, given an appropriate action interface, pretrained VLMs can themselves serve as native action models for robotic manipulation.</p><div class="metric-strip"><span><strong>0</strong><small>Action Pretraining</small></span><span><strong>30</strong><small>Demos to Match EASG-VLM Zero-shot</small></span><span><strong>0.8B</strong><small>Least Scale to Exceed OpenVLA</small></span></div></div>
+        </div>
+        <figure class="figure-card teaser-figure"><img src="assets/project/teaser.svg" alt="Paper teaser showing the EASG action frame and manipulation results" loading="lazy" decoding="async"><figcaption>EASG grounds the <strong>VLM-native action</strong> in the <strong>Tool-Center-Point</strong> frame.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section section-light method-intro" id="method" data-section="METHOD" data-rail-copy="A unified action interface.">
+      <div class="section-caption"><span>METHOD</span></div>
+      <div class="section-heading stack-note"><div><p class="eyebrow">A UNIFIED ACTION INTERFACE</p><h2><strong>EASG:</strong> Explicit Action-Space Grounding</h2></div></div>
+      <figure class="figure-card method-figure"><img src="assets/project/method.svg" alt="EASG method overview diagram" loading="lazy" decoding="async"><figcaption>EASG explicitly grounds robot-action semantics in the VLM’s perceptual context and expresses actions through its native textual generation interface.</figcaption></figure>
+      <div class="method-grid">
+        <article class="method-card method-card-grounding"><span class="method-index">3.1</span><div><h3>Explicit action-space grounding</h3><p>Anchor a local action frame at the <strong>current TCP</strong> and <strong>project its origin and axes</strong> into the wrist view.</p><div class="method-card-formula" aria-label="Projection of the grounded action frame"><math display="block"><mrow><msub><mi mathvariant="bold">u</mi><mi>j</mi></msub><mo>=</mo><mi>π</mi><mo>[</mo><mi mathvariant="bold">K</mi><mo>(</mo><msubsup><mi mathvariant="bold">p</mi><mrow><mi>A</mi><mi>t</mi></mrow><mi>C</mi></msubsup><mo>+</mo><mi>ℓ</mi><msubsup><mi mathvariant="bold">R</mi><mrow><mi>A</mi><mi>t</mi></mrow><mi>C</mi></msubsup><msub><mi mathvariant="bold">e</mi><mi>j</mi></msub><mo>)</mo><mo>]</mo></mrow></math></div><p>The VLM predicts motion in this common frame, with inverse kinematics executing it on each robot.</p><div class="method-card-formula" aria-label="Robot-frame execution and inverse kinematics"><math display="block"><mrow><msubsup><mi mathvariant="bold">Δp</mi><mi>t</mi><mi>B</mi></msubsup><mo>=</mo><msubsup><mi mathvariant="bold">R</mi><mrow><mi>A</mi><mi>t</mi></mrow><mi>B</mi></msubsup><msubsup><mi mathvariant="bold">Δp</mi><mi>t</mi><mi>A</mi></msubsup><mo>,</mo><mspace width="1em"/><msubsup><mi mathvariant="bold">q</mi><mi>t</mi><mo>*</mo></msubsup><mo>=</mo><mi>IK</mi><mo>(</mo><msubsup><mi mathvariant="bold">T</mi><mi>t</mi><mrow><mi>B</mi><mo>,</mo><mo>*</mo></mrow></msubsup><mo>;</mo><msub><mi mathvariant="bold">q</mi><mi>t</mi></msub><mo>)</mo></mrow></math></div></div></article>
+        <article class="method-card"><span class="method-index">3.2</span><div><h3>VLM-native textual actions</h3><p>Serialize translation, rotation, state, and gripper commands with the pretrained vocabulary — no new action head required.</p></div><div class="action-code"><div class="action-code-line"><span class="action-gripper">0 <em>(task state)</em></span> <i>|</i> <span class="action-large">+0.40,-0.10,+0.91,+6.00</span> <em>(translation)</em></div><div class="action-code-line"><span class="action-large">+0.00,+0.00,+1.00,-45.00</span> <em>(rotation)</em> <i>|</i> <span class="action-gripper">+1.00 <em>(gripper)</em></span></div></div></article>
+        <article class="method-card method-card-training">
+          <span class="method-index">3.3</span>
+          <div>
+            <h3>Causal language-model fine-tuning</h3>
+            <p>Given a demonstrated action sequence <em>y*</em> = (<em>y</em><sub>1</sub><sup>*</sup>, …, <em>y</em><sub>N</sub><sup>*</sup>), fine-tune the VLM directly with standard causal language-model cross-entropy.</p>
+            <div class="method-card-formula training-formula" aria-label="Causal language-model cross-entropy loss">
+              <math display="block">
+                <mrow>
+                  <msub><mi mathvariant="script">L</mi><mtext>CE</mtext></msub>
+                  <mo>=</mo><mo>−</mo>
+                  <munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover>
+                  <mi>log</mi>
+                  <msub><mi>p</mi><mi>θ</mi></msub>
+                  <mo>(</mo>
+                  <msubsup><mi>y</mi><mi>k</mi><mo>*</mo></msubsup>
+                  <mo>|</mo>
+                  <msubsup><mi>y</mi><mrow><mo>&lt;</mo><mi>k</mi></mrow><mo>*</mo></msubsup>
+                  <mo>,</mo><mi>I</mi><mo>,</mo><mi>G</mi><mo>,</mo><mi>l</mi>
+                  <mo>)</mo>
+                </mrow>
+              </math>
+            </div>
+          </div>
+        </article>
+        <article class="method-card method-card-grammar" id="method-gcd">
+          <span class="method-index">3.4</span>
+          <div>
+            <h3>Grammar-constrained decoding</h3>
+            <p>Keep autoregressive generation native while restricting outputs to valid action formats and numeric precision.</p>
+            <div class="method-card-formula grammar-formula" aria-label="Grammar-constrained decoding logits">
+              <math display="block">
+                <mrow>
+                  <mover accent="true"><msub><mi>z</mi><mi>k</mi></msub><mo>~</mo></mover>
+                  <mo>(</mo><mi>v</mi><mo>)</mo><mo>=</mo>
+                  <mo>{</mo>
+                  <mtable columnalign="left left" columnspacing="1.1em" rowspacing=".45em">
+                    <mtr>
+                      <mtd><msub><mi>z</mi><mi>k</mi></msub><mo>(</mo><mi>v</mi><mo>)</mo><mo>,</mo></mtd>
+                      <mtd><mi>v</mi><mo>∈</mo><msub><mi mathvariant="script">V</mi><mi>G</mi></msub><mo>(</mo><msub><mi>y</mi><mrow><mo>&lt;</mo><mi>k</mi></mrow></msub><mo>)</mo><mo>,</mo></mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd><mo>−∞</mo><mo>,</mo></mtd>
+                      <mtd><mtext>otherwise.</mtext></mtd>
+                    </mtr>
+                  </mtable>
+                </mrow>
+              </math>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-exp experiments-intro" id="experiments" data-section="EXPERIMENTS" data-rail-copy="From zero-shot manipulation to post-training and transfer.">
+      <div class="section-caption"><span>EXPERIMENTS</span></div>
+      <div class="experiment-setup-grid">
+        <figure class="experiment-setup-figure">
+          <img src="assets/project/RealSceneSetup.svg" alt="UR3 real-world robot setup with wrist-mounted RGB-D and external cameras" loading="lazy" decoding="async">
+          <figcaption><strong>Real-world robot setup.</strong></figcaption>
+        </figure>
+        <div class="experiment-setup-copy">
+          <p class="eyebrow">REAL-WORLD EVALUATION</p>
+          <h2>Experimental Setup.</h2>
+          <p>We evaluate EASG on a 6-DoF UR3 with wrist-mounted RGB-D and external cameras across rigid, articulated, deformable, precise, and long-horizon tasks.</p>
+          <p>Task Group 1 measures native zero-shot manipulation on simpler tasks, while Task Group 2 tests whether robot-data fine-tuning can extend EASG to more precise, complex, and long-horizon tasks.</p>
+        </div>
+      </div>
+
+      <div class="experiment-task-groups">
+        <div class="experiment-task-panel experiment-task-panel-one">
+          <h3>Task Group 1: Zero-shot evaluation tasks.</h3>
+          <table class="experiment-task-table">
+            <thead><tr><th>Type</th><th>Task</th><th>Task description</th></tr></thead>
+            <tbody>
+              <tr><th rowspan="3" scope="rowgroup">Rigid</th><td class="task-code">1.1.1</td><td>Grasp the cucumber</td></tr>
+              <tr><td class="task-code">1.1.2</td><td>Pick up the block</td></tr>
+              <tr><td class="task-code">1.1.3</td><td>Pick up the banana and put it on the plate</td></tr>
+              <tr><th rowspan="2" scope="rowgroup">Articulated</th><td class="task-code">1.2.1</td><td>Close the laptop</td></tr>
+              <tr><td class="task-code">1.2.2</td><td>Push the drawer closed</td></tr>
+              <tr><th scope="row">Deformable</th><td class="task-code">1.3</td><td>Fold the towel</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="experiment-task-panel experiment-task-panel-two">
+          <h3>Task Group 2: Capability extension tasks.</h3>
+          <table class="experiment-task-table">
+            <thead><tr><th>Type</th><th>Task</th><th>Task description</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Deformable</th><td class="task-code">2.1</td><td>Fold the T-shirt in half.</td></tr>
+              <tr><th scope="row">Articulated</th><td class="task-code">2.2</td><td>Open the laptop.</td></tr>
+              <tr><th rowspan="2" scope="rowgroup">Precise</th><td class="task-code">2.3.1</td><td>Pick up the ring and put it on one of the pegs.</td></tr>
+              <tr><td class="task-code">2.3.2</td><td>Hang the cup on the peg.</td></tr>
+              <tr><th rowspan="2" scope="rowgroup">Long-horizon</th><td class="task-code">2.4.1</td><td>Open the drawer, then put the Rubik's Cube in the drawer.</td></tr>
+              <tr><td class="task-code">2.4.2</td><td>Put the grapes in the drawer, then close the drawer.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="experiment-task-caption"><strong>Real-world task setups.</strong> See the paper appendix for the full object group included in the evaluation.</p>
+      </div>
+    </section>
+
+    <section class="section section-exp zero-shot" id="zero-shot" data-section="ZERO-SHOT" data-rail-copy="Click a task type, then switch the task window.">
+        <div class="section-caption"><span>ZERO-SHOT</span></div>
+      <div class="section-heading stack-note"><div><p class="eyebrow">ZERO-SHOT MANIPULATION</p><div class="zero-shot-title-row"><img class="zero-shot-title-icon" src="assets/project/qwen.svg" alt="Qwen" loading="lazy" decoding="async"><h2>VLM Zero-shot Manipulation Capability</h2></div><p class="section-note">Qwen-3.8-27B + EASG | Evaluation of 30 trials per task</p></div></div>
+      <div class="zero-grid">
+        <div class="task-type-list" role="tablist" aria-label="Zero-shot task types"><button class="task-type active" data-type="Rigid" role="tab">Rigid <small>3 tasks</small></button><button class="task-type" data-type="Articulated" role="tab">Articulated <small>2 tasks</small></button><button class="task-type" data-type="Deformable" role="tab">Deformable <small>1 task</small></button><div class="zero-status-card"><span class="success-pill">EASG · zero-shot</span></div></div>
+        <div class="zero-display"><div class="video-shell"><div class="video-topline"><span id="zero-type-label">RIGID · EXTERIOR + WRIST</span><span class="video-status" id="zero-video-status">VIDEO PLACEHOLDER</span></div><video class="zero-video" id="zero-video" controls muted loop playsinline preload="metadata" aria-label="Zero-shot exterior and wrist demonstration" hidden></video><div class="video-placeholder" id="zero-video-placeholder"><div class="play-orbit">▶</div><p>Drop the stitched exterior + wrist clip here</p><small id="zero-task-label">1.1.1 · Grasp the cucumber</small></div><div class="video-switcher" id="zero-switcher"><button class="active" data-task="1.1.1">1.1.1</button><button data-task="1.1.2">1.1.2</button><button data-task="1.1.3">1.1.3</button></div></div><div class="task-description"><p id="zero-description">Grasp the cucumber</p></div></div>
+      </div>
+    </section>
+
+    <section class="section section-exp demo-section" id="data-efficiency" data-section="DATA EFFICIENCY" data-rail-copy="Thirty trajectories close the gap.">
+      <div class="section-caption"><span>DATA EFFICIENCY</span></div>
+      <div class="section-heading compact stack-note"><div><p class="eyebrow">Q1 · COMPARISON</p><h2>How many trajectories does a VLA model need<br>to catch up EASG-VLM <strong>zero-shot</strong> performance?</h2><p class="section-note">We use Qwen-3.8-27B for comparison.</p></div></div>
+      <div class="demo-chart" id="demo-chart" data-level="10">
+        <div class="chart-area">
+          <div class="chart-series-legend" aria-label="Fine-tuned VLA baselines">
+            <span><i style="--series:#5DB3AE"></i>π₀.₅</span>
+            <span><i style="--series:#F09137"></i>π₀-FAST</span>
+            <span><i style="--series:#9B74D6"></i>GR00T N1.6</span>
+            <span><i style="--series:#497DB0"></i>OpenVLA-OFT</span>
+          </div>
+          <svg class="trajectory-chart" viewBox="0 0 760 285" role="img" aria-label="Success rate of four VLA baselines as the number of demonstrations increases">
+            <g class="demo-grid-lines">
+              <line x1="76" y1="26" x2="684" y2="26"></line><text x="62" y="31">100%</text>
+              <line x1="76" y1="84" x2="684" y2="84"></line><text x="62" y="89">75%</text>
+              <line x1="76" y1="142" x2="684" y2="142"></line><text x="62" y="147">50%</text>
+              <line x1="76" y1="200" x2="684" y2="200"></line><text x="62" y="205">25%</text>
+              <line x1="76" y1="258" x2="684" y2="258"></line><text x="62" y="263">0%</text>
+            </g>
+            <g class="demo-x-guides"><line x1="76" y1="26" x2="76" y2="258"></line><line x1="228" y1="26" x2="228" y2="258"></line><line x1="380" y1="26" x2="380" y2="258"></line><line x1="532" y1="26" x2="532" y2="258"></line><line x1="684" y1="26" x2="684" y2="258"></line></g>
+            <text class="demo-axis-title demo-axis-title-y" x="17" y="144" transform="rotate(-90 17 144)">Avg. success rate</text>
+            <line class="easg-reference" x1="76" y1="73.8" x2="684" y2="73.8"></line>
+            <text class="easg-reference-label" x="680" y="65"><tspan>Ours Zero-shot · </tspan><tspan class="demo-inline-number">79.4%</tspan></text>
+            <g id="demo-series-layer"></g>
+          </svg>
+          <div class="chart-x" aria-label="Demonstrations per task">
+            <button class="active" data-demo="10" aria-label="Select 10 demonstrations"><span class="chart-select-indicator"><b>SELECT</b><svg viewBox="0 0 24 28" aria-hidden="true"><path d="M12 2V20M5 14L12 21L19 14"></path></svg></span><span class="x-value">10</span></button>
+            <button data-demo="20" aria-label="Select 20 demonstrations"><span class="chart-select-indicator"><b>SELECT</b><svg viewBox="0 0 24 28" aria-hidden="true"><path d="M12 2V20M5 14L12 21L19 14"></path></svg></span><span class="x-value">20</span></button>
+            <button data-demo="30" aria-label="Select 30 demonstrations"><span class="chart-select-indicator"><b>SELECT</b><svg viewBox="0 0 24 28" aria-hidden="true"><path d="M12 2V20M5 14L12 21L19 14"></path></svg></span><span class="x-value">30</span></button>
+            <button data-demo="40" aria-label="Select 40 demonstrations"><span class="chart-select-indicator"><b>SELECT</b><svg viewBox="0 0 24 28" aria-hidden="true"><path d="M12 2V20M5 14L12 21L19 14"></path></svg></span><span class="x-value">40</span></button>
+            <button data-demo="50" aria-label="Select 50 demonstrations"><span class="chart-select-indicator"><b>SELECT</b><svg viewBox="0 0 24 28" aria-hidden="true"><path d="M12 2V20M5 14L12 21L19 14"></path></svg></span><span class="x-value">50</span></button>
+          </div>
+          <div class="chart-axis-title chart-axis-title-x">Demonstrations per task</div>
+        </div>
+        <aside class="chart-readout"><span>SELECTED TRAJECTORIES</span><strong id="demo-readout">10</strong><div class="demo-score-list" id="demo-score"></div></aside>
+      </div>
+      <div class="finding-box"><span class="finding-bar"></span><p>Around 30 demonstrations are sufficient for fine-tuned VLA policies to catch up.</p></div>
+    </section>
+
+    <section class="section section-exp randomization-section" id="randomization" data-section="RANDOMIZATION" data-rail-copy="FREE Movement and Rotation&#10;within Manipulation Area">
+      <div class="section-caption"><span>RANDOMIZATION</span></div>
+      <div class="section-heading compact stack-note"><div><p class="eyebrow">Q1 · ROBUSTNESS</p><h2>Three dimensions of randomization.</h2></div></div>
+      <div class="randomization-panel" id="randomization-panel" data-task="cucumber">
+        <div class="randomization-task-tabs" role="tablist" aria-label="Randomization task settings">
+          <button class="active" type="button" role="tab" aria-selected="true" aria-label="Task 1.1.1, grasp the cucumber" data-randomization-task="cucumber"><span>1.1.1</span></button>
+          <button type="button" role="tab" aria-selected="false" aria-label="Task 1.1.2, pick up the block" data-randomization-task="cube"><span>1.1.2</span></button>
+          <button type="button" role="tab" aria-selected="false" aria-label="Task 1.1.3, pick up the banana and put it on the plate" data-randomization-task="banana"><span>1.1.3</span></button>
+          <button type="button" role="tab" aria-selected="false" aria-label="Task 1.2.1, close laptop" data-randomization-task="laptop"><span>1.2.1</span></button>
+          <button type="button" role="tab" aria-selected="false" aria-label="Task 1.2.2, close the drawer" data-randomization-task="drawer"><span>1.2.2</span></button>
+          <button type="button" role="tab" aria-selected="false" aria-label="Task 1.3, fold the towel" data-randomization-task="towel"><span>1.3</span></button>
+        </div>
+        <div class="randomization-source-scroll">
+          <div class="randomization-source">
+            <div class="randomization-pdf-frame">
+              <img class="randomization-pdf" src="assets/project/random-web.svg?v=20261006" alt="Task Group 1 examples of color, position, and pose randomization in task-number order" loading="lazy" decoding="async">
+            </div>
+            <div class="randomization-column-map" aria-label="Select a task directly from the randomization figure">
+              <button class="active" type="button" aria-label="Show randomization for Task 1.1.1, grasp the cucumber" data-randomization-task="cucumber"></button>
+              <button type="button" aria-label="Show randomization for Task 1.1.2, pick up the block" data-randomization-task="cube"></button>
+              <button type="button" aria-label="Show randomization for Task 1.1.3, pick up the banana and put it on the plate" data-randomization-task="banana"></button>
+              <button type="button" aria-label="Show randomization for Task 1.2.1, close laptop" data-randomization-task="laptop"></button>
+              <button type="button" aria-label="Show randomization for Task 1.2.2, close the drawer" data-randomization-task="drawer"></button>
+              <button type="button" aria-label="Show randomization for Task 1.3, fold the towel" data-randomization-task="towel"></button>
+            </div>
+          </div>
+        </div>
+        <p class="section-note randomization-note">For tasks that EASG-VLM can complete zero-shot, objects may move and rotate <strong>FREELY</strong> within the manipulation area.</p>
+        <div class="randomization-video-window" id="randomization-video-window">
+          <div class="randomization-video-caption">
+            <strong id="randomization-video-task">1.1.1 · Grasp the cucumber</strong>
+          </div>
+          <div class="randomization-video-placeholder" aria-label="One stitched exterior and wrist video window">
+            <div>
+              <span class="play-orbit" aria-hidden="true">▶</span>
+              <p>Stitched exterior + wrist video</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-exp libero-section" id="libero" data-section="LIBERO" data-rail-copy="Qwen-3.5-0.8B approaches π₀-FAST on LIBERO.">
+      <div class="section-caption"><span>LIBERO</span></div>
+      <div class="section-heading stack-note"><div><p class="eyebrow">Q2 · SIMULATION</p><h2>Fine-tuning VLMs in Simulation.</h2></div></div>
+      <div class="libero-grid">
+        <div class="radar-wrap">
+          <svg class="radar" viewBox="0 0 420 360" role="img" aria-label="LIBERO radar comparison">
+            <g class="radar-skeleton">
+              <circle cx="210" cy="180" r="135"/><circle cx="210" cy="180" r="100"/><circle cx="210" cy="180" r="65"/>
+              <line x1="210" y1="180" x2="210" y2="45"/><line x1="210" y1="180" x2="338.4" y2="138.3"/><line x1="210" y1="180" x2="289.4" y2="289.2"/><line x1="210" y1="180" x2="130.6" y2="289.2"/><line x1="210" y1="180" x2="81.6" y2="138.3"/>
+            </g>
+            <g class="radar-labels"><text x="210" y="27" text-anchor="middle">SPATIAL</text><text x="344" y="135">OBJECT</text><text x="294" y="319">GOAL</text><text x="126" y="319" text-anchor="end">10</text><text x="76" y="135" text-anchor="end">AVERAGE</text></g>
+            <polygon class="radar-data radar-ours" points="210,55.1 330.4,140.9 275.9,270.8 159.5,249.6 103,145.2" data-method="ours"/>
+            <polygon class="radar-data radar-pi" points="210,49.9 334.3,139.6 280.3,276.8 162.2,245.7 100.2,144.3" data-method="pi"/>
+            <polygon class="radar-data radar-octo" points="210,73.5 320,144.2 277.1,272.4 169.5,235.8 113.6,148.7" data-method="octo"/>
+            <polygon class="radar-data radar-openvla" points="210,65.7 323.5,143.1 272.8,266.5 167.4,238.6 111.8,148.1" data-method="openvla"/>
+            <g class="radar-values radar-values-ours"><circle cx="210" cy="55.1" r="3.4"/><circle cx="330.4" cy="140.9" r="3.4"/><circle cx="275.9" cy="270.8" r="3.4"/><circle cx="159.5" cy="249.6" r="3.4"/><circle cx="103" cy="145.2" r="3.4"/><text x="218" y="51">92.5</text><text x="337" y="137">93.8</text><text x="282" y="283">83.1</text><text x="153" y="262" text-anchor="end">63.7</text><text x="96" y="141" text-anchor="end">83.3</text></g>
+            <g class="radar-values radar-values-pi"><circle cx="210" cy="49.9" r="3.4"/><circle cx="334.3" cy="139.6" r="3.4"/><circle cx="280.3" cy="276.8" r="3.4"/><circle cx="162.2" cy="245.7" r="3.4"/><circle cx="100.2" cy="144.3" r="3.4"/><text x="218" y="43">96.4</text><text x="341" y="132">96.8</text><text x="286" y="292">88.6</text><text x="151" y="257" text-anchor="end">60.2</text><text x="93" y="137" text-anchor="end">85.5</text></g>
+            <g class="radar-values radar-values-octo"><circle cx="210" cy="73.5" r="3.4"/><circle cx="320" cy="144.2" r="3.4"/><circle cx="277.1" cy="272.4" r="3.4"/><circle cx="169.5" cy="235.8" r="3.4"/><circle cx="113.6" cy="148.7" r="3.4"/><text x="218" y="78">78.9</text><text x="327" y="141">85.7</text><text x="283" y="285">84.6</text><text x="163" y="248" text-anchor="end">51.1</text><text x="107" y="145" text-anchor="end">75.1</text></g>
+            <g class="radar-values radar-values-openvla"><circle cx="210" cy="65.7" r="3.4"/><circle cx="323.5" cy="143.1" r="3.4"/><circle cx="272.8" cy="266.5" r="3.4"/><circle cx="167.4" cy="238.6" r="3.4"/><circle cx="111.8" cy="148.1" r="3.4"/><text x="201" y="63" text-anchor="end">84.7</text><text x="330" y="151">88.4</text><text x="267" y="278" text-anchor="end">79.2</text><text x="174" y="242">53.7</text><text x="105" y="154" text-anchor="end">76.5</text></g>
+          </svg>
+          <p class="libero-figure-caption">Qwen-3.5-0.8B exceeds OpenVLA and approaches π₀-FAST in LIBERO under the same input observation settings.</p>
+        </div>
+        <div class="method-toggles"><p class="method-toggle-label">METHOD</p><button class="method-toggle active" data-method="ours"><span class="legend-dot ours"></span><strong>Ours · Qwen-3.5-0.8B</strong><small>92.5 / 93.8 / 83.1 / 63.7 / <b>83.3</b></small></button><button class="method-toggle" data-method="pi"><span class="legend-dot pi"></span><strong>π₀-FAST</strong><small>96.4 / 96.8 / 88.6 / 60.2 / <b>85.5</b></small></button><button class="method-toggle" data-method="octo"><span class="legend-dot octo"></span><strong>Octo</strong><small>78.9 / 85.7 / 84.6 / 51.1 / <b>75.1</b></small></button><button class="method-toggle" data-method="openvla"><span class="legend-dot openvla"></span><strong>OpenVLA</strong><small>84.7 / 88.4 / 79.2 / 53.7 / <b>76.5</b></small></button></div>
+      </div>
+    </section>
+
+    <section class="section section-exp finetune" id="finetune" data-section="FINE-TUNING" data-rail-copy="VLMs can be fine-tuned beyond their zero-shot capabilities.">
+      <div class="section-caption"><span>FINE-TUNING</span></div>
+      <div class="section-heading stack-note"><div><p class="eyebrow">Q2 · REAL WORLD</p><h2>Fine-tuning VLMs to extend their capabilities.</h2><p class="section-note">We fine-tune the Qwen-3.8-27B following the textual action learning procedure on Task Group 2, which contains more challenging tasks that cannot be completed by Qwen-3.8-27B zero-shot.</p></div></div>
+      <div class="finetune-stack">
+        <div class="finetune-chart" aria-label="Fine-tuned success rates for Ours, Pi0-FAST, Octo, and OpenVLA across Task Group 2">
+          <svg viewBox="0 0 680 280" role="img">
+            <g class="finetune-legend">
+              <g transform="translate(40 14)"><line x1="0" y1="0" x2="28" y2="0"/><circle cx="14" cy="0" r="3"/><text x="34" y="4">Ours (Qwen-3.5-0.8B)</text></g>
+              <g class="legend-pi" transform="translate(250 14)"><line x1="0" y1="0" x2="28" y2="0"/><circle cx="14" cy="0" r="3"/><text x="34" y="4">Pi0-FAST</text></g>
+              <g class="legend-octo" transform="translate(370 14)"><line x1="0" y1="0" x2="28" y2="0"/><circle cx="14" cy="0" r="3"/><text x="34" y="4">Octo</text></g>
+              <g class="legend-openvla" transform="translate(463 14)"><line x1="0" y1="0" x2="28" y2="0"/><circle cx="14" cy="0" r="3"/><text x="34" y="4">OpenVLA</text></g>
+            </g>
+            <g class="chart-grid"><line x1="48" y1="38" x2="650" y2="38"/><line x1="48" y1="65" x2="650" y2="65"/><line x1="48" y1="92" x2="650" y2="92"/><line x1="48" y1="119" x2="650" y2="119"/><line x1="48" y1="147" x2="650" y2="147"/><line x1="48" y1="174" x2="650" y2="174"/><line x1="48" y1="201" x2="650" y2="201"/><line x1="48" y1="228" x2="650" y2="228"/></g>
+            <g class="chart-y-labels"><text x="29" y="42">90</text><text x="29" y="69">80</text><text x="29" y="96">70</text><text x="29" y="123">60</text><text x="29" y="151">50</text><text x="29" y="178">40</text><text x="29" y="205">30</text><text x="29" y="232">20</text></g>
+            <text class="chart-axis-y" x="14" y="138" transform="rotate(-90 14 138)" text-anchor="middle">SR (%)</text>
+            <polyline class="chart-series chart-series-openvla" points="64,92.3 177,155.5 290,164.7 403,228 516,83.3 629,74.1"/>
+            <polyline class="chart-series chart-series-octo" points="64,83.3 177,173.7 290,155.5 403,209.8 516,65.1 629,74.1"/>
+            <polyline class="chart-series chart-series-ours" points="64,65.1 177,110.5 290,128.4 403,164.7 516,74.1 629,56.2"/>
+            <polyline class="chart-series chart-series-pi" points="64,56.2 177,92.3 290,137.6 403,146.6 516,65.1 629,56.2"/>
+            <g class="chart-dots openvla-dots"><circle cx="64" cy="92.3" r="3.5"/><circle cx="177" cy="155.5" r="3.5"/><circle cx="290" cy="164.7" r="3.5"/><circle cx="403" cy="228" r="3.5"/><circle cx="516" cy="83.3" r="3.5"/><circle cx="629" cy="74.1" r="3.5"/></g>
+            <g class="chart-dots octo-dots"><circle cx="64" cy="83.3" r="3.5"/><circle cx="177" cy="173.7" r="3.5"/><circle cx="290" cy="155.5" r="3.5"/><circle cx="403" cy="209.8" r="3.5"/><circle cx="516" cy="65.1" r="3.5"/><circle cx="629" cy="74.1" r="3.5"/></g>
+            <g class="chart-dots ours-dots"><circle cx="64" cy="65.1" r="3.5"/><circle cx="177" cy="110.5" r="3.5"/><circle cx="290" cy="128.4" r="3.5"/><circle cx="403" cy="164.7" r="3.5"/><circle cx="516" cy="74.1" r="3.5"/><circle cx="629" cy="56.2" r="3.5"/></g>
+            <g class="chart-dots pi-dots"><circle cx="64" cy="56.2" r="3.5"/><circle cx="177" cy="92.3" r="3.5"/><circle cx="290" cy="137.6" r="3.5"/><circle cx="403" cy="146.6" r="3.5"/><circle cx="516" cy="65.1" r="3.5"/><circle cx="629" cy="56.2" r="3.5"/></g>
+            <g class="finetune-values values-ours"><text x="49" y="62" text-anchor="end">80.0</text><text x="164" y="120" text-anchor="end">63.3</text><text x="300" y="124">56.7</text><text x="389" y="174" text-anchor="end">43.3</text><text x="529" y="68">76.7</text><text x="641" y="61">83.3</text></g>
+            <g class="finetune-values values-pi"><text x="75" y="52">83.3</text><text x="177" y="84" text-anchor="middle">70.0</text><text x="276" y="145" text-anchor="end">53.3</text><text x="403" y="138" text-anchor="middle">50.0</text><text x="500" y="56" text-anchor="end">80.0</text><text x="616" y="48" text-anchor="end">83.3</text></g>
+            <g class="finetune-values values-octo"><text x="76" y="84">73.3</text><text x="177" y="186" text-anchor="middle">40.0</text><text x="301" y="158">46.7</text><text x="390" y="205" text-anchor="end">26.7</text><text x="532" y="73">80.0</text><text x="641" y="79">76.7</text></g>
+            <g class="finetune-values values-openvla"><text x="57" y="105" text-anchor="end">70.0</text><text x="177" y="151" text-anchor="middle">46.7</text><text x="290" y="176" text-anchor="middle">43.3</text><text x="413" y="239">20.0</text><text x="516" y="94" text-anchor="middle">73.3</text><text x="617" y="89" text-anchor="end">76.7</text></g>
+            <g class="chart-task-labels"><text x="64" y="253" text-anchor="middle">2.1</text><text x="177" y="253" text-anchor="middle">2.2</text><text x="290" y="253" text-anchor="middle">2.3.1</text><text x="403" y="253" text-anchor="middle">2.3.2</text><text x="516" y="253" text-anchor="middle">2.4.1</text><text x="629" y="253" text-anchor="middle">2.4.2</text></g>
+          </svg>
+        </div>
+        <div class="finetune-task-strip"><button class="task-index active" data-finetune="2.1"><b>2.1</b><span class="task-thumb"><img src="assets/project/finetune_tasks/task_2_1.png" alt="Task 2.1: fold the T-shirt in half" loading="lazy" decoding="async"></span><em>Fold the T-shirt in half.</em></button><button class="task-index" data-finetune="2.2"><b>2.2</b><span class="task-thumb"><img src="assets/project/finetune_tasks/task_2_2.png" alt="Task 2.2: open the laptop" loading="lazy" decoding="async"></span><em>Open the laptop.</em></button><button class="task-index" data-finetune="2.3.1"><b>2.3.1</b><span class="task-thumb"><img src="assets/project/finetune_tasks/task_2_3_1.png" alt="Task 2.3.1: place the ring on a peg" loading="lazy" decoding="async"></span><em>Pick up the ring and place it on a peg.</em></button><button class="task-index" data-finetune="2.3.2"><b>2.3.2</b><span class="task-thumb"><img src="assets/project/finetune_tasks/task_2_3_2.png" alt="Task 2.3.2: hang the cup on the peg" loading="lazy" decoding="async"></span><em>Hang the cup on the peg.</em></button><button class="task-index" data-finetune="2.4.1"><b>2.4.1</b><span class="task-thumb"><img src="assets/project/finetune_tasks/task_2_4_1.png" alt="Task 2.4.1: open the drawer and place the Rubik's Cube inside" loading="lazy" decoding="async"></span><em>Open the drawer, then place the Rubik's Cube inside.</em></button><button class="task-index" data-finetune="2.4.2"><b>2.4.2</b><span class="task-thumb"><img src="assets/project/finetune_tasks/task_2_4_2.png" alt="Task 2.4.2: place the grapes in the drawer and close it" loading="lazy" decoding="async"></span><em>Place the grapes in the drawer, then close it.</em></button></div>
+      </div>
+      <div class="expand-panel" id="finetune-panel"><div class="expand-caption" id="finetune-description">Task 2.1 · Fold the T-shirt in half.</div><div class="video-placeholder wide"><span class="placeholder-label">OURS · SUCCESSFUL CASE</span><div class="play-orbit">▶</div><p>Drop the stitched exterior + wrist clip here</p></div></div>
+    </section>
+
+    <section class="section section-exp cross-section" id="cross-embodiment" data-section="CROSS-EMBODIMENT" data-rail-copy="Policies trained w/ UR3 data can be transferred to Flexiv.">
+      <div class="section-caption"><span>CROSS-EMBODIMENT</span></div>
+      <div class="section-heading stack-note"><div><p class="eyebrow">Q3 · CROSS-EMBODIMENT TRANSFER</p><h2>The fine-tuned VLM policies remain effective under the new embodiment.</h2></div></div>
+      <div class="cross-table-wrap"><p class="table-note">Success rate (%) · click a task number to reveal the three-view window.</p><table class="cross-table"><thead><tr><th>Task number</th><th><button data-cross="2.1">2.1</button></th><th><button data-cross="2.2">2.2</button></th><th><button data-cross="2.3.1">2.3.1</button></th><th><button data-cross="2.3.2">2.3.2</button></th><th><button data-cross="2.4.1">2.4.1</button></th><th><button data-cross="2.4.2">2.4.2</button></th></tr></thead><tbody><tr><th scope="row">UR3</th><td>76.7</td><td>60.0</td><td>53.3</td><td>36.7</td><td>76.7</td><td>80.0</td></tr><tr><th scope="row">Flexiv</th><td>73.3</td><td>56.7</td><td>50.0</td><td>40.0</td><td>73.3</td><td>80.0</td></tr></tbody></table></div>
+      <div class="cross-reference-note">Trained w/ Wrist Obs &amp; EEF pose in TCP frame<br>Exterior Obs only for reference</div>
+      <div class="cross-below"><div class="expand-panel cross-panel" id="cross-panel"><div class="expand-caption" id="cross-description">Task 2.1 · Fold the T-shirt in half.</div><div class="cross-video-grid"><div class="mini-video"><span>UR3 · exterior</span><div class="mini-placeholder"></div></div><div class="mini-video"><span>wrist · stitched</span><div class="mini-placeholder wrist"></div></div><div class="mini-video"><span>Flexiv · exterior</span><div class="mini-placeholder"></div></div></div></div></div>
+    </section>
+
+    <section class="section section-exp frontier-section" id="frontier" data-section="VLM BOUNDARY" data-rail-copy="Zero-shot capability varies across VLM families and scales.">
+      <div class="section-caption"><span>VLM BOUNDARY</span></div>
+      <div class="section-heading stack-note"><div><h2>Model family &amp; size: boundaries of zero-shot manipulation.</h2></div></div>
+      <div class="frontier-wrap">
+        <div class="model-ripples">
+          <div class="model-circle circle-astra" aria-label="GPT-Astra frontier"><span class="model-label">GPT-Astra</span></div>
+          <div class="model-circle circle-fable" aria-label="Fable 5.1 frontier"><span class="model-label">Fable 5.1</span><button class="frontier-task task-13" data-task-info="1.3|Fold the towel · first reaches at least 50% success with Fable 5.1|assets/project/frontier_tcp/towel_tcp.webp">1.3</button></div>
+          <div class="model-circle circle-397" aria-label="Qwen3.5 397B frontier"><span class="model-label">Qwen3.5 397B</span></div>
+          <div class="model-circle circle-122" aria-label="Qwen3.5 122B frontier"><span class="model-label">Qwen3.5 122B</span></div>
+          <div class="model-circle circle-27" aria-label="Qwen3.8 27B frontier"><span class="model-label">Qwen3.8 27B</span><button class="frontier-task task-111" data-task-info="1.1.1|Grasp the cucumber · first reaches at least 50% success with Qwen3.8 27B|assets/project/frontier_tcp/cucumber_tcp.webp">1.1.1</button><button class="frontier-task task-112" data-task-info="1.1.2|Pick up the block · first reaches at least 50% success with Qwen3.8 27B|assets/project/frontier_tcp/cube_tcp.webp">1.1.2</button><button class="frontier-task task-113" data-task-info="1.1.3|Pick up the banana and put it on the plate · first reaches at least 50% success with Qwen3.8 27B|assets/project/frontier_tcp/banana_tcp.webp">1.1.3</button></div>
+          <div class="model-circle circle-9" aria-label="Qwen3.5 9B frontier"><span class="model-label">Qwen3.5 9B</span><button class="frontier-task task-121" data-task-info="1.2.1|Close the laptop · first reaches at least 50% success with Qwen3.5 9B|assets/project/frontier_tcp/laptop_tcp.webp">1.2.1</button><button class="frontier-task task-122" data-task-info="1.2.2|Push the drawer closed · first reaches at least 50% success with Qwen3.5 9B|assets/project/frontier_tcp/drawer_tcp.webp">1.2.2</button></div>
+          <div class="model-circle circle-4" aria-label="Qwen3.5 4B frontier"><span class="model-label">Qwen3.5 4B</span></div>
+          <div class="model-circle circle-2" aria-label="Qwen3.5 2B frontier"><span class="model-label">Qwen3.5 2B</span></div>
+        </div>
+        <div class="task-bubble" id="task-bubble"><img src="assets/project/frontier_tcp/cucumber_tcp.webp" alt="Task wrist-camera view with the EASG TCP frame" loading="lazy" decoding="async"><strong id="bubble-title">1.1</strong><p id="bubble-copy">Rigid manipulation: grasp, pick up, and place objects</p></div>
+      </div>
+      <p class="frontier-criterion"><span><strong>zero-shot manipulation frontier</strong> of pretrained VLMs across model families and scales.</span><strong class="frontier-threshold">Task codes mark <span class="frontier-first-model">the first model</span> to reach ≥50% zero-shot success.</strong></p>
+    </section>
+
+    <section class="section section-exp ablation-section" id="ablations" data-section="ABLATIONS" data-rail-copy="Frame and metric depth are necessary anchors for EASG to work.">
+      <div class="section-caption"><span>ABLATIONS</span></div>
+      <div class="ablation-layout">
+        <div class="ablation-matrix">
+          <div class="matrix-axis matrix-axis-top">Frame grounding</div>
+          <div class="matrix-column-labels">
+            <span><span class="setting-name">w/ TCP frame</span><br><small>EASG · main</small></span>
+            <span><span class="setting-name">w/ Wrist-camera frame</span><br><small>view-relative axes</small></span>
+            <span><span class="setting-name">w/ Robot-base frame</span><br><small>base-relative axes</small></span>
+            <span><span class="setting-name">w/o any frame</span><br><small>no coordinate cue</small></span>
+          </div>
+          <div class="matrix-body">
+            <div class="matrix-labels"><span class="setting-name">w/ Metric Depth</span><span class="setting-name">w/o Metric Depth</span></div>
+            <div class="matrix-grid">
+              <button class="matrix-cell work active" data-abl="w/ TCP frame + Metric Depth"><span>○</span><small>EASG</small></button>
+              <button class="matrix-cell fail" data-abl="w/ Wrist-camera frame + Metric Depth"><span>×</span><small>zero success</small></button>
+              <button class="matrix-cell fail" data-abl="w/ Robot-base frame + Metric Depth"><span>×</span><small>zero success</small></button>
+              <button class="matrix-cell fail" data-abl="w/o any frame + Metric Depth"><span>×</span><small>zero success</small></button>
+              <button class="matrix-cell fail" data-abl="w/ TCP frame + w/o Metric Depth"><span>×</span><small>zero success</small></button>
+              <button class="matrix-cell fail" data-abl="w/ Wrist-camera frame + w/o Metric Depth"><span>×</span><small>zero success</small></button>
+              <button class="matrix-cell fail" data-abl="w/ Robot-base frame + w/o Metric Depth"><span>×</span><small>zero success</small></button>
+              <button class="matrix-cell fail" data-abl="w/o any frame + w/o Metric Depth"><span>×</span><small>zero success</small></button>
+            </div>
+          </div>
+          <div class="matrix-footnote" aria-label="Ablation matrix legend">
+            <div class="matrix-legend-item"><span class="work-mark" aria-hidden="true">○</span><span>EASG · Our Method</span></div>
+            <div class="matrix-legend-item"><span class="fail-mark" aria-hidden="true">×</span><span>cannot work · zero success rate</span></div>
+          </div>
+        </div>
+        <div class="ablation-detail"><div class="detail-kicker">SELECTED SETTING</div><h3 id="abl-title">w/ TCP frame + Metric Depth</h3><p id="abl-copy"><span class="ablation-wave">It's EASG's main setting:</span><br>with the TCP-centered action frame projected into the wrist view<br>and metric depth preserving physical information.</p><div class="gcd-comparison" id="abl-gcd"><div class="bar-chart"><div><i style="height:88.8%"><b>83.3</b></i><span>GCD</span></div><div><i style="height:71%"><b>72.6</b></i><span>w/o GCD</span></div></div><p class="bar-caption"><a class="gcd-method-link" href="#method-gcd">Grammar Constrained Decoding (GCD)</a> keeps the generated action valid and lifts fine-tuning performance.</p></div></div>
+      </div>
+      <figure class="ablation-frame-figure">
+        <img src="assets/project/ablation_frame-web.svg?v=20261007-cropped" alt="Frame ablation comparing robot-base, wrist-camera, and TCP action-frame grounding" loading="lazy" decoding="async">
+        <figcaption>We visualize representative rollouts of the full TCP-centered grounding and two alternative coordinate-frame choices on the same zero-shot manipulation task.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section section-exp resources" id="summary" data-section="SUMMARY" data-rail-copy="Paper, code, playground, and video.">
+      <div class="section-caption"><span>SUMMARY</span></div>
+      <div class="resource-inline-links"><a href="files/paper.pdf">PAPER</a><i>|</i><a href="https://github.com/General-Robo/EASG">GITHUB REPO</a><i>|</i><a href="#method">PLAYGROUND</a><i>|</i><a href="#finetune">VIDEO</a></div>
+      <div class="summary-lower-grid">
+        <div class="visitor-map-widget" aria-label="Recent visitor map">
+          <div class="visitor-map-heading">RECENT VISITORS</div>
+          <div class="visitor-map-embed">
+            <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=efYBc7wCfcupmxJThbMNbhMN4p6Keg8lWHHLICYrGp4&amp;cl=ffffff&amp;w=300"></script>
+            <noscript><a href="https://mapmyvisitors.com/web/1c8q3" title="Visit tracker"><img src="https://mapmyvisitors.com/map.png?d=efYBc7wCfcupmxJThbMNbhMN4p6Keg8lWHHLICYrGp4&amp;cl=ffffff" alt="Visit tracker"></a></noscript>
+          </div>
+        </div>
+        <div class="reference-box bibtex-reference" id="reference">
+          <div class="reference-heading"><span>REFERENCE</span><button class="copy-bibtex" id="copy-bibtex" type="button">Copy BibTeX</button></div>
+          <pre><code id="bibtex-code">@misc{yi2026vlms,
+  title  = {VLMs are Native Action Models: Unleashing the Manipulation Capabilities of VLMs with Explicit Action-Space Grounding},
+  author = {Yi, Jingkun and Zhang, Shujie and Zhou, Zirui and Wang, Haoxiao and Sun, Haiyang and Dong, Yuhang and Xu, Xudong and Shen, Xing and Zhang, Tao and Liu, Yong and Zhang, Jiangning},
+  year   = {2026}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+    <section class="project-outro" aria-label="Project conclusion">
+      <p class="outro-statement">VLMs are Native Action Models.</p>
+      <a class="outro-star-link" href="#top" aria-label="Back to page start"><img class="outro-star" src="assets/project/star.svg" alt="" aria-hidden="true"></a>
+    </section>
+  </main>
+  <script src="assets/js/easg.js?v=20261007-local-ablation-wave"></script>
+</body>
+</html>
