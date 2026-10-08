@@ -325,9 +325,9 @@ main { position: relative; z-index: 2; }
 .randomization-source-scroll { overflow-x: auto; scrollbar-width: thin; }
 .randomization-source { position: relative; min-width: 860px; overflow: hidden; border: 0; background: transparent; }
 .randomization-source img { display: block; width: 100%; height: auto; }
-.randomization-pdf-frame { width: 100%; aspect-ratio: 715.574 / 291.746; overflow: hidden; background: transparent; }
+.randomization-pdf-frame { width: 100%; aspect-ratio: 640.307 / 236.014; overflow: hidden; background: transparent; }
 .randomization-pdf { display: block; width: 100%; height: 100%; border: 0; background: transparent; pointer-events: none; }
-.randomization-column-map { position: absolute; inset: 9.5% .9% 2.2%; display: grid; grid-template-columns: repeat(6, 1fr); }
+.randomization-column-map { position: absolute; inset: 0 .15%; display: grid; grid-template-columns: repeat(6, 1fr); }
 .randomization-column-map button { border: 0; border-left: 1px solid rgba(51,78,172,.08); background: rgba(226,238,255,.55); cursor: pointer; transition: background .22s, box-shadow .22s; }
 .randomization-column-map button:last-child { border-right: 1px solid rgba(51,78,172,.08); }
 .randomization-column-map button:hover { background: rgba(226,238,255,.28); }

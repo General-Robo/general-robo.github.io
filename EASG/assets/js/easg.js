@@ -130,7 +130,7 @@
     ],
     Articulated: [
       ['1.2.1', 'Close the laptop', 'assets/project/videos/videos/close_the_laptop/combine-web.mp4'],
-      ['1.2.2', 'Push the drawer closed', 'assets/project/videos/videos/push_the_drawer_closed/combine-web.mp4']
+      ['1.2.2', 'Push the drawer closed', 'assets/project/videos/videos/push_the_drawer_closed/combine-web.mp4?v=20261007-updated']
     ],
     Deformable: [['1.3', 'Fold the towel', 'assets/project/videos/videos/fold_the_towel/combine-web.mp4']]
   };
