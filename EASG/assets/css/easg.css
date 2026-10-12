@@ -280,6 +280,7 @@ main { position: relative; z-index: 2; }
 .task-description { padding: 16px 0 0; text-align: center; }.task-description p { margin: 0 0 9px; color: var(--navy); font: 1.28rem var(--body); }
 .success-pill { display: inline-block; color: #687b96; font: 600 14px var(--sans); letter-spacing: .04em; text-decoration: underline; text-underline-offset: 4px; }
 .demo-section { background: #E2EEFF; }
+.demo-section .demo-question { margin: 0; color: #61738f; font: 400 clamp(1.45rem, 2.3vw, 2rem)/1.35 var(--body); letter-spacing: normal; text-shadow: none; }
 .demo-chart { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 24px; min-height: 430px; padding: 24px 22px 18px; background: rgba(208,227,255,.48); border: 1px solid rgba(51,78,172,.2); }
 .chart-area { position: relative; min-width: 0; }
 .chart-series-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 22px; min-height: 28px; color: #425f91; font: 600 13px var(--sans); }
