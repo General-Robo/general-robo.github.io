@@ -362,7 +362,7 @@
     '2.1': 'Task 2.1 · Fold the T-shirt in half.', '2.2': 'Task 2.2 · Open the laptop.', '2.3.1': 'Task 2.3.1 · Pick up the ring and place it on a peg.', '2.3.2': 'Task 2.3.2 · Hang the cup on the peg.', '2.4.1': 'Task 2.4.1 · Open the drawer, then place the Rubik\'s Cube inside.', '2.4.2': 'Task 2.4.2 · Place the grapes in the drawer, then close it.'
   };
   var finetuneVideos = {
-    '2.1': 'assets/project/videos/finetune/2.1.mp4?v=20261011-seek-fix', '2.2': 'assets/project/videos/finetune/2.2.mp4?v=20261011-seek-fix', '2.3.1': 'assets/project/videos/finetune/2.3.1.mp4?v=20261011-seek-fix', '2.3.2': 'assets/project/videos/finetune/2.3.2.mp4?v=20261011-seek-fix', '2.4.1': 'assets/project/videos/finetune/2.4.1.mp4?v=20261011-seek-fix', '2.4.2': 'assets/project/videos/finetune/2.4.2.mp4?v=20261011-seek-fix'
+    '2.1': 'assets/project/videos/finetune/2.1-5x.mp4', '2.2': 'assets/project/videos/finetune/2.2-5x.mp4', '2.3.1': 'assets/project/videos/finetune/2.3.1-5x.mp4', '2.3.2': 'assets/project/videos/finetune/2.3.2-5x.mp4', '2.4.1': 'assets/project/videos/finetune/2.4.1-5x.mp4', '2.4.2': 'assets/project/videos/finetune/2.4.2-5x.mp4'
   };
   var finePanel = document.getElementById('finetune-panel');
   var fineCopy = document.getElementById('finetune-description');
@@ -377,7 +377,7 @@
       }
       document.querySelectorAll('.task-index').forEach(function (other) { other.classList.remove('active'); });
       button.classList.add('active');
-      fineCopy.textContent = finetuneDescriptions[button.dataset.finetune] + ' (×1)';
+      fineCopy.textContent = finetuneDescriptions[button.dataset.finetune] + ' (×5)';
       if (fineVideo && fineVideo.dataset.task !== button.dataset.finetune) {
         fineVideo.pause();
         fineVideo.src = finetuneVideos[button.dataset.finetune];
@@ -389,16 +389,32 @@
   });
   var crossCopy = document.getElementById('cross-description');
   var crossPanel = document.getElementById('cross-panel');
+  var crossVideo = document.getElementById('cross-video');
+  var crossVideos = {
+    '2.1': 'assets/project/videos/cross-embodiment/2.1-5x.mp4',
+    '2.2': 'assets/project/videos/cross-embodiment/2.2-5x.mp4',
+    '2.3.1': 'assets/project/videos/cross-embodiment/2.3.1-5x.mp4',
+    '2.3.2': 'assets/project/videos/cross-embodiment/2.3.2-5x.mp4',
+    '2.4.1': 'assets/project/videos/cross-embodiment/2.4.1-5x.mp4',
+    '2.4.2': 'assets/project/videos/cross-embodiment/2.4.2-5x.mp4'
+  };
   document.querySelectorAll('[data-cross]').forEach(function (button) {
     button.addEventListener('click', function () {
       if (button.classList.contains('active') && crossPanel.classList.contains('open')) {
         button.classList.remove('active');
         crossPanel.classList.remove('open');
+        crossVideo.pause();
         return;
       }
       document.querySelectorAll('[data-cross]').forEach(function (other) { other.classList.remove('active'); });
       button.classList.add('active');
-      crossCopy.textContent = 'Task ' + button.dataset.cross + ' · ' + finetuneDescriptions[button.dataset.cross].replace(/^Task [^·]+· /, '');
+      crossCopy.textContent = 'Task ' + button.dataset.cross + ' · ' + finetuneDescriptions[button.dataset.cross].replace(/^Task [^·]+· /, '') + ' (×5)';
+      if (crossVideo.dataset.task !== button.dataset.cross) {
+        crossVideo.pause();
+        crossVideo.src = crossVideos[button.dataset.cross];
+        crossVideo.dataset.task = button.dataset.cross;
+        crossVideo.load();
+      }
       crossPanel.classList.add('open');
     });
   });

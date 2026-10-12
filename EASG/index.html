@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/easg.css?v=20261011-institution-gap-v14">
+  <link rel="stylesheet" href="assets/css/easg.css?v=20261012-finetune-width-v16">
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -344,7 +344,7 @@
         </div>
         <div class="finetune-task-strip"><button class="task-index active" data-finetune="2.1"><b>2.1</b><span class="task-thumb"><img src="assets/project/finetune_tasks/task_2_1.png" alt="Task 2.1: fold the T-shirt in half" loading="lazy" decoding="async"></span><em>Fold the T-shirt in half.</em></button><button class="task-index" data-finetune="2.2"><b>2.2</b><span class="task-thumb"><img src="assets/project/finetune_tasks/task_2_2.png" alt="Task 2.2: open the laptop" loading="lazy" decoding="async"></span><em>Open the laptop.</em></button><button class="task-index" data-finetune="2.3.1"><b>2.3.1</b><span class="task-thumb"><img src="assets/project/finetune_tasks/task_2_3_1.png" alt="Task 2.3.1: place the ring on a peg" loading="lazy" decoding="async"></span><em>Pick up the ring and place it on a peg.</em></button><button class="task-index" data-finetune="2.3.2"><b>2.3.2</b><span class="task-thumb"><img src="assets/project/finetune_tasks/task_2_3_2.png" alt="Task 2.3.2: hang the cup on the peg" loading="lazy" decoding="async"></span><em>Hang the cup on the peg.</em></button><button class="task-index" data-finetune="2.4.1"><b>2.4.1</b><span class="task-thumb"><img src="assets/project/finetune_tasks/task_2_4_1.png" alt="Task 2.4.1: open the drawer and place the Rubik's Cube inside" loading="lazy" decoding="async"></span><em>Open the drawer, then place the Rubik's Cube inside.</em></button><button class="task-index" data-finetune="2.4.2"><b>2.4.2</b><span class="task-thumb"><img src="assets/project/finetune_tasks/task_2_4_2.png" alt="Task 2.4.2: place the grapes in the drawer and close it" loading="lazy" decoding="async"></span><em>Place the grapes in the drawer, then close it.</em></button></div>
       </div>
-      <div class="expand-panel" id="finetune-panel"><div class="expand-caption" id="finetune-description">Task 2.1 · Fold the T-shirt in half. (×1)</div><div class="finetune-video-window"><video id="finetune-video" controls muted loop playsinline preload="metadata" data-task="2.1" src="assets/project/videos/finetune/2.1.mp4?v=20261011-seek-fix" aria-label="Fine-tuned EASG successful rollout"></video></div></div>
+      <div class="expand-panel" id="finetune-panel"><div class="expand-caption" id="finetune-description">Task 2.1 · Fold the T-shirt in half. (×5)</div><div class="finetune-video-window"><video id="finetune-video" controls muted loop playsinline preload="metadata" data-task="2.1" src="assets/project/videos/finetune/2.1-5x.mp4" aria-label="Fine-tuned EASG successful rollout at five times speed"></video></div></div>
     </section>
 
     <section class="section section-exp cross-section" id="cross-embodiment" data-section="CROSS-EMBODIMENT" data-rail-copy="Policies trained w/ UR3 data can be transferred to Flexiv.">
@@ -352,7 +352,7 @@
       <div class="section-heading stack-note"><div><p class="eyebrow">Q3 · CROSS-EMBODIMENT TRANSFER</p><h2>The fine-tuned VLM policies remain effective under the new embodiment.</h2></div></div>
       <div class="cross-table-wrap"><p class="table-note">Success rate (%) · click a task number to reveal the three-view window.</p><table class="cross-table"><thead><tr><th>Task number</th><th><button data-cross="2.1">2.1</button></th><th><button data-cross="2.2">2.2</button></th><th><button data-cross="2.3.1">2.3.1</button></th><th><button data-cross="2.3.2">2.3.2</button></th><th><button data-cross="2.4.1">2.4.1</button></th><th><button data-cross="2.4.2">2.4.2</button></th></tr></thead><tbody><tr><th scope="row">UR3</th><td>76.7</td><td>60.0</td><td>53.3</td><td>36.7</td><td>76.7</td><td>80.0</td></tr><tr><th scope="row">Flexiv</th><td>73.3</td><td>56.7</td><td>50.0</td><td>40.0</td><td>73.3</td><td>80.0</td></tr></tbody></table></div>
       <div class="cross-reference-note">Trained w/ Wrist Obs &amp; EEF pose in TCP frame<br>Exterior Obs only for reference</div>
-      <div class="cross-below"><div class="expand-panel cross-panel" id="cross-panel"><div class="expand-caption" id="cross-description">Task 2.1 · Fold the T-shirt in half.</div><div class="cross-video-grid"><div class="mini-video"><span>UR3 · exterior</span><div class="mini-placeholder"></div></div><div class="mini-video"><span>wrist · stitched</span><div class="mini-placeholder wrist"></div></div><div class="mini-video"><span>Flexiv · exterior</span><div class="mini-placeholder"></div></div></div></div></div>
+      <div class="cross-below"><div class="expand-panel cross-panel" id="cross-panel"><div class="expand-caption" id="cross-description">Task 2.1 · Fold the T-shirt in half. (×5)</div><div class="cross-video-window"><video id="cross-video" controls muted loop playsinline preload="metadata" data-task="2.1" src="assets/project/videos/cross-embodiment/2.1-5x.mp4" aria-label="Cross-embodiment UR3, wrist-TCP, and Flexiv rollout at five times speed"></video></div></div></div>
     </section>
 
     <section class="section section-exp frontier-section" id="frontier" data-section="VLM BOUNDARY" data-rail-copy="Zero-shot capability varies across VLM families and scales.">
@@ -437,6 +437,6 @@
       <a class="outro-star-link" href="#top" aria-label="Back to page start"><img class="outro-star" src="assets/project/star.svg" alt="" aria-hidden="true"></a>
     </section>
   </main>
-  <script src="assets/js/easg.js?v=20261011-finetune-seek-fix-v8"></script>
+  <script src="assets/js/easg.js?v=20261012-five-times-video-v10"></script>
 </body>
 </html>
