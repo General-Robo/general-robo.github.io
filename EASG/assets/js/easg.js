@@ -150,7 +150,16 @@
       button.type = 'button';
       button.textContent = item[0];
       if (index === 0) button.className = 'active';
-      button.addEventListener('click', function () { renderZeroTask(item, button, true); });
+      button.addEventListener('click', function () {
+        if (button.classList.contains('active') && !zeroVideo.hidden) {
+          zeroVideo.pause();
+          zeroVideo.hidden = true;
+          zeroVideoPlaceholder.hidden = true;
+          zeroVideoStatus.textContent = '';
+          return;
+        }
+        renderZeroTask(item, button, true);
+      });
       zeroSwitcher.appendChild(button);
     });
     renderZeroTask(items[0], zeroSwitcher.querySelector('button'), Boolean(shouldPlay));
@@ -280,21 +289,50 @@
   chooseDemo(selectedDemo);
 
   var randomizationData = {
-    cucumber: { title: '1.1.1 · Grasp the cucumber' },
-    cube: { title: '1.1.2 · Pick up the block' },
-    banana: { title: '1.1.3 · Pick up the banana and put it on the plate' },
-    laptop: { title: '1.2.1 · Close laptop' },
-    drawer: { title: '1.2.2 · Close the drawer' },
-    towel: { title: '1.3 · Fold the towel' }
+    cucumber: { title: '1.1.1 · Grasp the cucumber (×1)', videos: ['assets/project/videos/videos/grasp_the_cucumber/combine-web.mp4', 'assets/project/videos/randomization/1.1.1/rollout-01.mp4'] },
+    cube: { title: '1.1.2 · Pick up the block (×1)', videos: ['assets/project/videos/videos/pick_up_block/combine-web.mp4', 'assets/project/videos/randomization/1.1.2/rollout-01.mp4', 'assets/project/videos/randomization/1.1.2/rollout-02.mp4', 'assets/project/videos/randomization/1.1.2/rollout-03.mp4'] },
+    banana: { title: '1.1.3 · Pick up the banana and put it on the plate (×1)', videos: ['assets/project/videos/videos/pnp_banana/combine-web.mp4', 'assets/project/videos/randomization/1.1.3/rollout-01.mp4', 'assets/project/videos/randomization/1.1.3/rollout-02.mp4', 'assets/project/videos/randomization/1.1.3/rollout-03.mp4'] },
+    laptop: { title: '1.2.1 · Close the laptop (×1)', videos: ['assets/project/videos/videos/close_the_laptop/combine-web.mp4', 'assets/project/videos/randomization/1.2.1/rollout-01.mp4'] },
+    drawer: { title: '1.2.2 · Push the drawer closed (×1)', videos: ['assets/project/videos/videos/push_the_drawer_closed/combine-web.mp4?v=20261007-updated', 'assets/project/videos/randomization/1.2.2/rollout-01.mp4'] },
+    towel: { title: '1.3 · Fold the towel (×1)', videos: ['assets/project/videos/videos/fold_the_towel/combine-web.mp4', 'assets/project/videos/randomization/1.3/rollout-01.mp4', 'assets/project/videos/randomization/1.3/rollout-02.mp4'] }
   };
   var randomizationPanel = document.getElementById('randomization-panel');
   var randomizationVideoTask = document.getElementById('randomization-video-task');
+  var randomizationVideoList = document.getElementById('randomization-video-list');
+  var randomizationVideoWindow = document.getElementById('randomization-video-window');
   var randomizationButtons = document.querySelectorAll('[data-randomization-task]');
-  function selectRandomizationTask(key) {
+  function selectRandomizationTask(key, toggleCurrent) {
     var setting = randomizationData[key];
     if (!setting || !randomizationPanel) return;
+    if (toggleCurrent && randomizationPanel.dataset.task === key && randomizationVideoWindow && !randomizationVideoWindow.hidden) {
+      randomizationVideoList.querySelectorAll('video').forEach(function (video) { video.pause(); });
+      randomizationVideoWindow.hidden = true;
+      return;
+    }
     randomizationPanel.dataset.task = key;
+    if (randomizationVideoWindow) randomizationVideoWindow.hidden = false;
     if (randomizationVideoTask) randomizationVideoTask.textContent = setting.title;
+    if (randomizationVideoList) {
+      randomizationVideoList.querySelectorAll('video').forEach(function (video) { video.pause(); });
+      var videoCards = setting.videos.map(function (source, index) {
+        var card = document.createElement('div');
+        card.className = 'randomization-video-card';
+        var label = document.createElement('span');
+        label.textContent = String(index + 1).padStart(2, '0');
+        var video = document.createElement('video');
+        video.className = 'randomization-video';
+        video.controls = true;
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.preload = 'metadata';
+        video.src = source;
+        video.setAttribute('aria-label', setting.title + ' randomized rollout ' + (index + 1));
+        card.append(label, video);
+        return card;
+      });
+      randomizationVideoList.replaceChildren.apply(randomizationVideoList, videoCards);
+    }
     randomizationButtons.forEach(function (button) {
       var active = button.dataset.randomizationTask === key;
       button.classList.toggle('active', active);
@@ -303,9 +341,9 @@
     });
   }
   randomizationButtons.forEach(function (button) {
-    button.addEventListener('click', function () { selectRandomizationTask(button.dataset.randomizationTask); });
+    button.addEventListener('click', function () { selectRandomizationTask(button.dataset.randomizationTask, true); });
   });
-  selectRandomizationTask('cucumber');
+  selectRandomizationTask('cucumber', false);
 
   document.querySelectorAll('.method-toggle').forEach(function (button) {
     button.addEventListener('click', function () {
@@ -323,18 +361,29 @@
   var finetuneDescriptions = {
     '2.1': 'Task 2.1 · Fold the T-shirt in half.', '2.2': 'Task 2.2 · Open the laptop.', '2.3.1': 'Task 2.3.1 · Pick up the ring and place it on a peg.', '2.3.2': 'Task 2.3.2 · Hang the cup on the peg.', '2.4.1': 'Task 2.4.1 · Open the drawer, then place the Rubik\'s Cube inside.', '2.4.2': 'Task 2.4.2 · Place the grapes in the drawer, then close it.'
   };
+  var finetuneVideos = {
+    '2.1': 'assets/project/videos/finetune/2.1.mp4?v=20261011-seek-fix', '2.2': 'assets/project/videos/finetune/2.2.mp4?v=20261011-seek-fix', '2.3.1': 'assets/project/videos/finetune/2.3.1.mp4?v=20261011-seek-fix', '2.3.2': 'assets/project/videos/finetune/2.3.2.mp4?v=20261011-seek-fix', '2.4.1': 'assets/project/videos/finetune/2.4.1.mp4?v=20261011-seek-fix', '2.4.2': 'assets/project/videos/finetune/2.4.2.mp4?v=20261011-seek-fix'
+  };
   var finePanel = document.getElementById('finetune-panel');
   var fineCopy = document.getElementById('finetune-description');
+  var fineVideo = document.getElementById('finetune-video');
   document.querySelectorAll('.task-index').forEach(function (button) {
     button.addEventListener('click', function () {
       if (button.classList.contains('active') && finePanel.classList.contains('open')) {
         button.classList.remove('active');
         finePanel.classList.remove('open');
+        if (fineVideo) fineVideo.pause();
         return;
       }
       document.querySelectorAll('.task-index').forEach(function (other) { other.classList.remove('active'); });
       button.classList.add('active');
-      fineCopy.textContent = finetuneDescriptions[button.dataset.finetune];
+      fineCopy.textContent = finetuneDescriptions[button.dataset.finetune] + ' (×1)';
+      if (fineVideo && fineVideo.dataset.task !== button.dataset.finetune) {
+        fineVideo.pause();
+        fineVideo.src = finetuneVideos[button.dataset.finetune];
+        fineVideo.dataset.task = button.dataset.finetune;
+        fineVideo.load();
+      }
       finePanel.classList.add('open');
     });
   });
