@@ -4,4 +4,4 @@ This public repository hosts static project pages for the General-Robo organizat
 
 - [EASG](https://general-robo.github.io/EASG/)
 
-The private `General-Robo/EASG` repository contains the project code and is intentionally independent from this website repository.
+The private `General-Robo/EASG` repository contains the project code and is independent from this website repository.
